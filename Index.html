@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pastel Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --bg: #fdfbff;
+      --bg-soft: #f4f0ff;
+      --surface: #ffffff;
+      --border-subtle: rgba(34, 22, 68, 0.08);
+
+      --accent: #f2a5c4;        /* pastel pink */
+      --accent-soft: #ffe4f1;
+      --accent-strong: #e885ad;
+
+      --accent-2: #a4c8ff;      /* pastel blue */
+      --accent-3: #b6e2d3;      /* pastel mint */
+
+      --text-main: #221644;
+      --text-soft: #6d648a;
+      --shadow-soft: 0 18px 45px rgba(10, 8, 30, 0.11);
+      --radius-lg: 22px;
+      --radius-md: 14px;
+
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: radial-gradient(circle at top left, #ffeefd 0, var(--bg) 36%),
+        radial-gradient(circle at bottom right, #e3f2ff 0, var(--bg-soft) 40%);
+      color: var(--text-main);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Layout */
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 7vw;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(
+        to bottom,
+        rgba(253, 251, 255, 0.92),
+        rgba(253, 251, 255, 0.78),
+        transparent
+      );
+      border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      background: linear-gradient(120deg, var(--accent-soft), var(--accent-2));
+      box-shadow: 0 10px 30px rgba(216, 173, 204, 0.45);
+    }
+
+    .site-nav {
+      display: flex;
+      gap: 1.4rem;
+      font-size: 0.9rem;
+    }
+
+    .site-nav a {
+      text-decoration: none;
+      color: var(--text-soft);
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    }
+
+    .site-nav a:hover {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-main);
+      transform: translateY(-1px);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: 0;
+      padding: 0.2rem;
+      cursor: pointer;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      margin: 3px 0;
+      background: var(--text-main);
+      border-radius: 999px;
+    }
+
+    /* Hero */
+
+    .hero {
+      padding: 5rem 7vw 3rem;
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(260px, 1.4fr);
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-kicker {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.75rem;
+      color: var(--accent-strong);
+      margin: 0 0 0.7rem;
+    }
+
+    .hero h1 {
+      margin: 0 0 1rem;
+      font-size: clamp(2.4rem, 4vw, 3.3rem);
+      letter-spacing: -0.03em;
+    }
+
+    .hero-sub {
+      margin: 0 0 1.8rem;
+      max-width: 34rem;
+      color: var(--text-soft);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    /* Buttons */
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      border: 0;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease,
+        background 0.2s ease, color 0.2s ease;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #201225;
+      box-shadow: 0 14px 35px rgba(155, 133, 199, 0.4);
+    }
+
+    .btn.primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 20px 40px rgba(155, 133, 199, 0.45);
+    }
+
+    .btn.ghost {
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+    }
+
+    .btn.ghost:hover {
+      background: rgba(255, 255, 255, 1);
+    }
+
+    /* Hero card */
+
+    .hero-card {
+      background: linear-gradient(145deg, rgba(255, 228, 241, 0.96), #ffffff);
+      border-radius: 28px;
+      padding: 1.8rem 1.6rem;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      display: grid;
+      row-gap: 1.2rem;
+    }
+
+    .hero-tag {
+      align-self: flex-start;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-soft);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .stat-number {
+      display: block;
+      font-weight: 600;
+      font-size: 1.6rem;
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    /* Sections */
+
+    .section {
+      padding: 3.5rem 7vw;
+    }
+
+    .section-header {
+      margin-bottom: 1.6rem;
+    }
+
+    .section-header h2 {
+      margin: 0 0 0.4rem;
+      font-size: 1.4rem;
+    }
+
+    .section-header p {
+      margin: 0;
+      color: var(--text-soft);
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .pill-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .pill-list li {
+      font-size: 0.8rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* Projects */
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.6rem;
+    }
+
+    .project-card {
+      background: radial-gradient(circle at top left, #ffe4f1 0, #ffffff 38%);
+      border-radius: var(--radius-lg);
+      padding: 0.9rem;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 15px 40px rgba(179, 165, 216, 0.22);
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 55px rgba(179, 165, 216, 0.3);
+    }
+
+    .project-thumb {
+      border-radius: var(--radius-md);
+      height: 180px;
+      background-image: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.72),
+          rgba(255, 255, 255, 0)
+        ),
+        linear-gradient(120deg, var(--accent-2), var(--accent-3));
+      background-size: cover;
+      background-position: center;
+    }
+
+    .project-body h3 {
+      margin: 0 0 0.3rem;
+      font-size: 1rem;
+    }
+
+    .project-body p {
+      margin: 0 0 0.7rem;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .project-meta {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    /* Simple contact text block (no form) */
+
+    .contact-note {
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      padding: 1.8rem 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 12px 35px rgba(171, 167, 211, 0.26);
+      color: var(--text-soft);
+    }
+
+    .contact-note a {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    /* Footer */
+
+    .site-footer {
+      padding: 2rem 7vw 2.2rem;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    /* Responsiveness */
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-card {
+        order: -1;
+      }
+
+      .about-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .site-header {
+        padding-inline: 5vw;
+      }
+
+      .section {
+        padding-inline: 5vw;
+      }
+
+      .site-nav {
+        position: fixed;
+        inset: 64px 5vw auto;
+        padding: 0.9rem;
+        border-radius: 999px;
+        background: rgba(253, 251, 255, 0.98);
+        box-shadow: 0 18px 40px rgba(84, 73, 134, 0.26);
+        justify-content: center;
+        transform: translateY(-150%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.18s ease, opacity 0.18s ease;
+      }
+
+      .site-nav.is-open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">YourName</div>
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="site-nav">
+      <a href="#top">Home</a>
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-text">
+        <p class="hero-kicker">Portfolio</p>
+        <h1>Minimal pastel visuals for the web.</h1>
+        <p class="hero-sub">
+          Front‑end developer & photographer crafting calm, clean interfaces.
+        </p>
+        <div class="hero-actions">
+          <a href="#work" class="btn primary">View projects</a>
+          <a href="#about" class="btn ghost">About me</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-tag">Available for freelance</div>
+        <div class="hero-stats">
+          <div>
+            <span class="stat-number">12+</span>
+            <span class="stat-label">Projects</span>
+          </div>
+          <div>
+            <span class="stat-number">5y</span>
+            <span class="stat-label">Experience</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="section-header">
+        <h2>About</h2>
+        <p>Calm layouts, photography‑first, and accessible front‑end code.</p>
+      </div>
+      <div class="about-layout">
+        <p>
+          Short bio here. Focus on what you do, your stack, and the type of
+          work you enjoy the most. Keep it to two or three lines so the page
+          stays light and easy to scan.
+        </p>
+        <ul class="pill-list">
+          <li>HTML / CSS / JS</li>
+          <li>Responsive design</li>
+          <li>Photography</li>
+          <li>Minimal UI</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="work" class="section">
+      <div class="section-header">
+        <h2>Selected work</h2>
+        <p>A small selection of recent projects.</p>
+      </div>
+      <div class="projects-grid">
+        <article class="project-card">
+          <div class="project-thumb"></div>
+          <div class="project-body">
+            <h3>Project title</h3>
+            <p>Short one‑line description of the project and your role.</p>
+            <div class="project-meta">
+              <span>Web design</span>
+              <span>2025</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-thumb"></div>
+          <div class="project-body">
+            <h3>Another project</h3>
+            <p>Describe outcomes, not just features; keep it very short.</p>
+            <div class="project-meta">
+              <span>Front‑end</span>
+              <span>2024</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-thumb"></div>
+          <div class="project-body">
+            <h3>Photography series</h3>
+            <p>Perfect place to link to a gallery or a case study page.</p>
+            <div class="project-meta">
+              <span>Photography</span>
+              <span>2023</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="section-header">
+        <h2>Contact</h2>
+        <p>Reach out directly without using a form.</p>
+      </div>
+      <div class="contact-note">
+        <p>Email: <a href="mailto:you@example.com">you@example.com</a></p>
+        <p>
+          You can also link to your social profiles here:
+          <a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>,
+          <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a>,
+          <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 YourName. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const navToggle = document.querySelector(".nav-toggle");
+    const nav = document.querySelector(".site-nav");
+
+    navToggle.addEventListener("click", () => {
+      nav.classList.toggle("is-open");
+    });
+  </script>
+</body>
+</html>
