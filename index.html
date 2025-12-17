@@ -7,46 +7,36 @@
 
   <style>
     :root {
-      --bg: #0e172a;
-      --bg-alt: #111b2f;
-      --glass-light: rgba(255, 255, 255, 0.08);
-      --accent: #8ab4ff;
-      --accent-soft: #a9d2ff;
-      --text-main: #eaf1ff;
-      --text-soft: #aebcd9;
+      --bg: #fdfbff;
+      --bg-soft: #f4f0ff;
+      --accent: #f2a5c4;
+      --accent-2: #a4c8ff;
+      --accent-3: #b6e2d3;
+      --text-main: #221644;
+      --text-soft: #6d648a;
+      --surface: #ffffff;
+      --border-subtle: rgba(34, 22, 68, 0.08);
+      --shadow-soft: 0 18px 45px rgba(10, 8, 30, 0.11);
       --radius-lg: 22px;
       --radius-md: 14px;
-      --shadow-glow: 0 18px 45px rgba(94, 150, 255, 0.18);
-      --font-sans: "Inter", system-ui, sans-serif;
+      --font-sans: system-ui, -apple-system, "Segoe UI", sans-serif;
     }
 
-    * {
-      box-sizing: border-box; margin: 0; padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: var(--font-sans);
+      background:
+        radial-gradient(circle at top left, #ffeefd 0, var(--bg) 36%),
+        radial-gradient(circle at bottom right, #e3f2ff 0, var(--bg-soft) 40%);
       color: var(--text-main);
-      background: radial-gradient(at top left, #152447, var(--bg-alt)),
-        radial-gradient(at bottom right, #0a1326, var(--bg));
-      background-attachment: fixed;
-      line-height: 1.6;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
       min-height: 100vh;
-      overflow-x: hidden;
     }
 
-    /* Parallax effect */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at 30% 10%, rgba(120,150,255,0.15), transparent 70%),
-                  radial-gradient(circle at 80% 70%, rgba(255,190,210,0.08), transparent 80%);
-      background-attachment: fixed;
-      z-index: -1;
-    }
+    /* Header / nav */
 
-    /* Header */
     .site-header {
       position: sticky;
       top: 0;
@@ -55,9 +45,9 @@
       align-items: center;
       justify-content: space-between;
       padding: 1.1rem 7vw;
-      backdrop-filter: blur(20px);
-      background: rgba(16, 24, 46, 0.6);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      background: rgba(253, 251, 255, 0.92);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.6);
     }
 
     .logo {
@@ -67,14 +57,13 @@
       font-size: 0.9rem;
       padding: 0.4rem 0.9rem;
       border-radius: 999px;
-      background: linear-gradient(120deg, var(--accent), var(--accent-soft));
-      color: #0e172a;
-      box-shadow: 0 0 20px rgba(138,180,255,0.35);
+      background: linear-gradient(120deg, #ffe4f1, var(--accent-2));
+      box-shadow: 0 10px 30px rgba(216, 173, 204, 0.45);
     }
 
     .site-nav {
       display: flex;
-      gap: 1rem;
+      gap: 1.1rem;
       font-size: 0.9rem;
     }
 
@@ -83,37 +72,47 @@
       color: var(--text-soft);
       padding: 0.35rem 0.8rem;
       border-radius: 999px;
-      transition: background 0.3s ease, color 0.3s ease;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
     }
 
-    .site-nav a:hover, .site-nav a.is-active {
-      background: rgba(255,255,255,0.12);
+    .site-nav a:hover {
+      background: rgba(255, 255, 255, 0.9);
       color: var(--text-main);
+      transform: translateY(-1px);
+    }
+
+    .site-nav a.is-active {
+      background: rgba(255, 255, 255, 1);
+      color: var(--text-main);
+      box-shadow: 0 6px 18px rgba(164, 200, 255, 0.4);
     }
 
     .nav-toggle {
       display: none;
       background: none;
       border: 0;
+      padding: 0.2rem;
       cursor: pointer;
     }
 
     .nav-toggle span {
       display: block;
-      width: 22px;
+      width: 20px;
       height: 2px;
+      margin: 3px 0;
       background: var(--text-main);
-      margin: 4px 0;
-      border-radius: 2px;
+      border-radius: 99px;
     }
 
+    /* Pages */
+
     main {
-      padding: 3rem 7vw;
+      padding: 3.5rem 7vw 3rem;
     }
 
     .page {
       display: none;
-      animation: fadeIn 0.5s ease;
+      animation: fadeIn 0.3s ease;
     }
 
     .page.is-active {
@@ -125,187 +124,352 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* Hero section */
+    .page-header {
+      margin-bottom: 1.8rem;
+      max-width: 720px;
+    }
+
+    .page-header h1,
+    .page-header h2 {
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .page-header p {
+      margin: 0;
+      color: var(--text-soft);
+    }
+
+    /* Home page */
+
     .home-layout {
       display: grid;
-      grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+      grid-template-columns: minmax(0, 2.1fr) minmax(260px, 1.4fr);
       gap: 3rem;
       align-items: center;
     }
 
     .hero-kicker {
       text-transform: uppercase;
-      color: var(--accent);
-      font-size: 0.75rem;
       letter-spacing: 0.18em;
+      font-size: 0.75rem;
+      color: #e885ad;
       margin-bottom: 0.7rem;
     }
 
     .hero-title {
-      font-size: clamp(2.4rem, 4vw, 3.2rem);
+      font-size: clamp(2.4rem, 4vw, 3.3rem);
       margin-bottom: 1rem;
-      background: linear-gradient(45deg, var(--accent-soft), #fff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
     .hero-sub {
       color: var(--text-soft);
-      max-width: 30rem;
       margin-bottom: 1.8rem;
+      max-width: 32rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
     }
 
     .btn {
-      padding: 0.8rem 1.5rem;
-      border-radius: 999px;
-      border: none;
-      text-decoration: none;
-      font-weight: 500;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      border: 0;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease,
+        background 0.2s ease, color 0.2s ease;
     }
 
     .btn.primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
-      color: #0e172a;
-      box-shadow: 0 14px 25px rgba(138, 180, 255, 0.3);
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #201225;
+      box-shadow: 0 14px 35px rgba(155, 133, 199, 0.4);
     }
 
     .btn.primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 35px rgba(138, 180, 255, 0.4);
+      transform: translateY(-1px);
+      box-shadow: 0 20px 40px rgba(155, 133, 199, 0.45);
     }
 
     .btn.ghost {
-      background: rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.8);
       color: var(--text-main);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+    }
+
+    .btn.ghost:hover {
+      background: rgba(255, 255, 255, 1);
     }
 
     .hero-card {
-      background: var(--glass-light);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: var(--radius-lg);
+      background: linear-gradient(145deg, rgba(255, 228, 241, 0.96), #ffffff);
+      border-radius: 28px;
       padding: 1.8rem 1.6rem;
-      box-shadow: var(--shadow-glow);
-      color: var(--text-main);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      display: grid;
+      row-gap: 1.2rem;
     }
 
     .hero-tag {
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--accent-soft);
-      margin-bottom: 1rem;
+      letter-spacing: 0.18em;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-soft);
+      justify-self: flex-start;
     }
 
     .hero-stats {
       display: flex;
-      gap: 2rem;
+      gap: 1.5rem;
     }
 
     .stat-number {
+      display: block;
       font-weight: 600;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
     }
 
     .stat-label {
+      display: block;
       font-size: 0.8rem;
       color: var(--text-soft);
     }
 
-    /* Same structural styling reused — just adjusted for dark mode aesthetic */
+    /* About page */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .pill-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .pill-list li {
+      font-size: 0.8rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* Gallery page */
 
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 1.6rem;
+      max-width: 1200px;
     }
 
     .photo-card {
+      position: relative;
       border-radius: var(--radius-lg);
       overflow: hidden;
-      background: rgba(255,255,255,0.05);
-      box-shadow: var(--shadow-glow);
+      box-shadow: 0 18px 40px rgba(179, 165, 216, 0.25);
+      background: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.9);
       cursor: zoom-in;
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .photo-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 28px 60px rgba(138,180,255,0.25);
+      box-shadow: 0 26px 60px rgba(179, 165, 216, 0.35);
     }
 
     .photo-card img {
+      display: block;
       width: 100%;
       height: 230px;
       object-fit: cover;
-      opacity: 0.88;
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition: transform 0.3s ease;
     }
 
     .photo-card:hover img {
-      opacity: 1;
       transform: scale(1.04);
     }
 
     .photo-info {
       position: absolute;
       inset: auto 0 0 0;
-      background: linear-gradient(to top, rgba(15, 20, 46, 0.8), transparent);
-      padding: 1rem;
+      padding: 1rem 1.1rem 1.1rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+      color: #fff;
+      font-size: 0.85rem;
+    }
+
+    .photo-info h3 {
+      margin: 0 0 0.25rem;
+      font-size: 1rem;
+    }
+
+    .photo-info span {
+      opacity: 0.92;
+    }
+
+    /* Contact page */
+
+    .contact-card {
+      max-width: 520px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 24px;
+      padding: 2rem 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 18px 40px rgba(171, 167, 211, 0.3);
+    }
+
+    .contact-card p {
+      margin-bottom: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .contact-card a {
+      color: var(--text-main);
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .contact-card a:hover {
+      text-decoration: underline;
+    }
+
+    /* Lightbox for gallery */
+
+    .lightbox-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 2, 25, 0.78);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 60;
+    }
+
+    .lightbox-backdrop.is-open {
+      display: flex;
+    }
+
+    .lightbox-inner {
+      max-width: min(90vw, 960px);
+      max-height: min(80vh, 640px);
+      background: #060417;
+      border-radius: 18px;
+      padding: 0.7rem;
+      box-shadow: 0 26px 80px rgba(0, 0, 0, 0.6);
+      position: relative;
+    }
+
+    .lightbox-inner img {
+      display: block;
+      width: 100%;
+      height: min(70vh, 560px);
+      object-fit: contain;
+      border-radius: 12px;
+      background: #000;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      border: 0;
+      border-radius: 999px;
+      width: 32px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      background: rgba(6, 4, 23, 0.8);
       color: #fff;
     }
 
+    /* Footer */
+
     .site-footer {
-      text-align: center;
-      padding: 2rem;
-      color: var(--text-soft);
+      padding: 2rem 7vw 2.2rem;
       font-size: 0.8rem;
+      color: var(--text-soft);
+      text-align: center;
     }
 
+    /* Responsive */
+
     @media (max-width: 800px) {
-      .home-layout {
-        grid-template-columns: 1fr;
+      main {
+        padding-inline: 5vw;
       }
 
-      .nav-toggle {
-        display: block;
+      .home-layout,
+      .about-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-card {
+        order: -1;
+      }
+
+      .site-header {
+        padding-inline: 5vw;
       }
 
       .site-nav {
         position: fixed;
-        top: 64px;
-        right: 5vw;
-        left: 5vw;
-        flex-direction: column;
-        background: rgba(16, 24, 46, 0.95);
-        border-radius: 18px;
-        padding: 1rem;
-        transform: scaleY(0);
+        inset: 64px 5vw auto;
+        padding: 0.8rem;
+        border-radius: 999px;
+        background: rgba(253, 251, 255, 0.98);
+        box-shadow: 0 18px 40px rgba(84, 73, 134, 0.28);
+        justify-content: center;
+        transform: translateY(-150%);
         opacity: 0;
-        transform-origin: top;
-        transition: all 0.25s ease;
+        pointer-events: none;
+        transition: transform 0.18s ease, opacity 0.18s ease;
       }
 
       .site-nav.is-open {
-        transform: scaleY(1);
+        transform: translateY(0);
         opacity: 1;
+        pointer-events: auto;
+      }
+
+      .nav-toggle {
+        display: block;
       }
     }
   </style>
 </head>
 <body>
   <header class="site-header">
-    <div class="logo">Soazig</div>
+    <div class="logo">YourName</div>
+
     <button class="nav-toggle" aria-label="Toggle navigation">
       <span></span><span></span><span></span>
     </button>
+
     <nav class="site-nav">
       <a href="#home" data-page-link="home" class="is-active">Home</a>
       <a href="#about" data-page-link="about">About</a>
@@ -315,23 +479,23 @@
   </header>
 
   <main>
-    <!-- Example hero (Home) -->
+    <!-- HOME PAGE -->
     <section class="page is-active" data-page="home">
       <div class="home-layout">
         <div>
           <p class="hero-kicker">Photography portfolio</p>
-          <h1 class="hero-title">Soft light through a deep blue lens.</h1>
+          <h1 class="hero-title">Soft pastel moments, captured in natural light.</h1>
           <p class="hero-sub">
-            Minimalist photographer capturing texture, quiet tones, and geometry in natural moments.
+            Photographer & front-end developer crafting minimalist images and calm, clean interfaces.
           </p>
           <div class="hero-actions">
-            <a href="#gallery" class="btn primary" data-page-link="gallery">View gallery</a>
-            <a href="#about" class="btn ghost" data-page-link="about">About me</a>
+            <a href="#gallery" data-page-link="gallery" class="btn primary">View gallery</a>
+            <a href="#about" data-page-link="about" class="btn ghost">About me</a>
           </div>
         </div>
 
         <aside class="hero-card">
-          <div class="hero-tag">Available for collaborations</div>
+          <div class="hero-tag">Available for shoots</div>
           <div class="hero-stats">
             <div>
               <span class="stat-number">150+</span>
@@ -339,38 +503,200 @@
             </div>
             <div>
               <span class="stat-number">3y</span>
-              <span class="stat-label">Experience</span>
+              <span class="stat-label">Shooting</span>
             </div>
           </div>
         </aside>
       </div>
     </section>
+
+    <!-- ABOUT PAGE -->
+    <section class="page" data-page="about">
+      <header class="page-header">
+        <h2>About</h2>
+        <p>Photography with a pastel mood, built for the web.</p>
+      </header>
+
+      <div class="about-grid">
+        <p>
+          Short bio here. Describe your style (portraits, landscapes, street),
+          tools, and what kind of collaborations you enjoy. Keep it tight so it
+          feels like a clean “about” page rather than a wall of text.
+        </p>
+
+        <ul class="pill-list">
+          <li>Portrait & lifestyle</li>
+          <li>Natural light</li>
+          <li>Minimal retouch</li>
+          <li>HTML / CSS / JS</li>
+          <li>Static sites</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- GALLERY PAGE -->
+    <section class="page" data-page="gallery">
+      <header class="page-header">
+        <h2>Gallery</h2>
+        <p>Recent photographs — click an image to open it larger.</p>
+      </header>
+
+      <div class="gallery-grid">
+        <!-- Replace src with your images (from repo or CDN) -->
+        <article class="photo-card" data-full-src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&w=1200">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&w=600&q=80" alt="Portrait in soft light" />
+          <div class="photo-info">
+            <h3>Golden hour portrait</h3>
+            <span>Portrait • 2025</span>
+          </div>
+        </article>
+
+        <article class="photo-card" data-full-src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&w=1200">
+          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&w=600&q=80" alt="Minimal landscape in fog" />
+          <div class="photo-info">
+            <h3>Morning mist</h3>
+            <span>Landscape • 2025</span>
+          </div>
+        </article>
+
+        <article class="photo-card" data-full-src="https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&w=1200">
+          <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&w=600&q=80" alt="City reflections" />
+          <div class="photo-info">
+            <h3>City reflections</h3>
+            <span>Street • 2024</span>
+          </div>
+        </article>
+
+        <article class="photo-card" data-full-src="https://images.unsplash.com/photo-1498550744921-75f79806b8a7?auto=format&w=1200">
+          <img src="https://images.unsplash.com/photo-1498550744921-75f79806b8a7?auto=format&w=600&q=80" alt="Flower closeup" />
+          <div class="photo-info">
+            <h3>Wildflowers</h3>
+            <span>Macro • 2024</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT PAGE -->
+    <section class="page" data-page="contact">
+      <header class="page-header">
+        <h2>Contact</h2>
+        <p>For shoots, prints, or collaborations.</p>
+      </header>
+
+      <div class="contact-card">
+        <p>
+          Email:
+          <a href="mailto:you@example.com?subject=Photography%20portfolio">
+            you@example.com
+          </a>
+        </p>
+        <p>
+          You can also add your social links here:
+          <br />
+          <a href="https://instagram.com/" target="_blank" rel="noreferrer">
+            Instagram
+          </a>
+          ·
+          <a href="https://github.com/" target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+          ·
+          <a href="https://linkedin.com/" target="_blank" rel="noreferrer">
+            LinkedIn
+          </a>
+        </p>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
-    <p>© 2025 Soazig de Kermenguy — Dream in pastel blue.</p>
+    <p>© 2025 YourName. Photography in pastel light.</p>
   </footer>
 
+  <!-- Lightbox -->
+  <div class="lightbox-backdrop" id="lightbox">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" aria-label="Close">×</button>
+      <img src="" alt="Large photo" id="lightbox-image" />
+    </div>
+  </div>
+
   <script>
+    // Page routing via hash
     const pages = document.querySelectorAll(".page");
     const navLinks = document.querySelectorAll("[data-page-link]");
     const nav = document.querySelector(".site-nav");
     const navToggle = document.querySelector(".nav-toggle");
 
-    function showPage(page) {
-      pages.forEach(p => p.classList.toggle("is-active", p.dataset.page === page));
-      navLinks.forEach(l => l.classList.toggle("is-active", l.dataset.pageLink === page));
+    function showPage(pageName) {
+      // Update sections
+      pages.forEach((page) => {
+        page.classList.toggle("is-active", page.dataset.page === pageName);
+      });
+
+      // Update nav states
+      navLinks.forEach((link) => {
+        const target = link.dataset.pageLink;
+        link.classList.toggle("is-active", target === pageName);
+      });
     }
 
     function handleHash() {
-      const hash = window.location.hash.replace("#", "") || "home";
-      showPage(hash);
+      const hash = window.location.hash.replace("#", "");
+      const target = hash || "home";
+      showPage(target);
     }
 
+    // Initial load + hash changes
     window.addEventListener("hashchange", handleHash);
-    window.addEventListener("DOMContentLoaded", handleHash);
+    window.addEventListener("DOMContentLoaded", () => {
+      handleHash();
+    });
 
-    navToggle.addEventListener("click", () => nav.classList.toggle("is-open"));
+    // Mobile nav toggle
+    navToggle.addEventListener("click", () => {
+      nav.classList.toggle("is-open");
+    });
+
+    // Close nav when clicking a link (mobile)
+    navLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("is-open");
+      });
+    });
+
+    // Simple lightbox for gallery
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-image");
+    const lightboxClose = document.querySelector(".lightbox-close");
+
+    document.querySelectorAll(".photo-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        const src = card.dataset.fullSrc || card.querySelector("img").src;
+        lightboxImg.src = src;
+        lightbox.classList.add("is-open");
+      });
+    });
+
+    lightboxClose.addEventListener("click", () => {
+      lightbox.classList.remove("is-open");
+      lightboxImg.src = "";
+    });
+
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) {
+        lightbox.classList.remove("is-open");
+        lightboxImg.src = "";
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        lightbox.classList.remove("is-open");
+        lightboxImg.src = "";
+      }
+    });
   </script>
 </body>
 </html>
