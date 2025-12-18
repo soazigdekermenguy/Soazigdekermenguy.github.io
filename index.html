@@ -347,66 +347,25 @@
       margin-top: 1rem;
     }
 
-    .pill-list li {
+    .pill-list li,
+    .social-pills li {
       font-size: 0.8rem;
       padding: 0.4rem 0.8rem;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.96);
       border: 1px solid var(--border-subtle);
+      transition: all 0.2s ease;
     }
 
-    /* Gallery page */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.6rem;
-      max-width: 1200px;
-    }
-
-    .photo-card {
-      position: relative;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: 0 18px 40px rgba(179, 165, 216, 0.25);
-      background: rgba(255, 255, 255, 0.96);
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      cursor: zoom-in;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .photo-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 26px 60px rgba(179, 165, 216, 0.35);
-    }
-
-    .photo-card img {
+    .social-pills li a {
+      color: var(--text-soft);
+      text-decoration: none;
       display: block;
-      width: 100%;
-      height: 230px;
-      object-fit: cover;
-      transition: transform 0.3s ease;
     }
 
-    .photo-card:hover img {
-      transform: scale(1.04);
-    }
-
-    .photo-info {
-      position: absolute;
-      inset: auto 0 0 0;
-      padding: 1rem 1.1rem 1.1rem;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.82), transparent);
-      color: #fff;
-      font-size: 0.85rem;
-    }
-
-    .photo-info h3 {
-      margin: 0 0 0.25rem;
-      font-size: 1rem;
-    }
-
-    .photo-info span {
-      opacity: 0.92;
+    .social-pills li:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(84, 73, 134, 0.2);
     }
 
     /* Contact page */
@@ -434,7 +393,7 @@
       text-decoration: underline;
     }
 
-    /* Lightbox for gallery */
+    /* Lightbox for portfolio pages */
     .lightbox-backdrop {
       position: fixed;
       inset: 0;
@@ -491,6 +450,42 @@
       font-size: 0.8rem;
       color: var(--text-soft);
       text-align: center;
+    }
+
+    /* Portfolio gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.6rem;
+      max-width: 1200px;
+    }
+
+    .photo-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(179, 165, 216, 0.25);
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      cursor: zoom-in;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .photo-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 26px 60px rgba(179, 165, 216, 0.35);
+    }
+
+    .photo-card img {
+      display: block;
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.04);
     }
 
     /* Responsive */
@@ -602,7 +597,6 @@
         </div>
       </div>
 
-      <a href="#gallery" data-page-link="gallery">Galerie</a>
       <a href="#contact" data-page-link="contact">Contact</a>
     </nav>
   </header>
@@ -618,7 +612,7 @@
           <p class="hero-sub">Photographe de mariages</p>
           <p class="hero-sub">ETN Photo - Scouts d'Europe</p>
           <div class="hero-actions">
-            <a href="#gallery" data-page-link="gallery" class="btn primary">Voir mon travail</a>
+            <a href="#portfolio-mariage" data-page-link="portfolio-mariage" class="btn primary">Voir mon travail</a>
             <a href="#contact" data-page-link="contact" class="btn ghost">Me contacter</a>
           </div>
         </div>
@@ -661,7 +655,14 @@
         <p>Une sélection de mariages que j'ai accompagnés.</p>
       </header>
       <div class="gallery-grid">
-        <!-- Ajoute tes photos ici -->
+        <article class="photo-card" data-full-src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&w=1200">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&w=600&q=80" alt="Portrait in soft light" />
+          <div class="photo-info">
+            <h3>Golden hour portrait</h3>
+            <span>Portrait • 2025</span>
+          </div>
+        </article>
+        <!-- Ajoute plus de photos ici -->
       </div>
     </section>
 
@@ -709,53 +710,11 @@
       </div>
     </section>
 
-    <!-- GALLERY PAGE -->
-    <section class="page" data-page="gallery">
-      <header class="page-header">
-        <h2>Galerie</h2>
-        <p>Mes photos préférées</p>
-      </header>
-
-      <div class="gallery-grid">
-        <article class="photo-card" data-full-src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&w=1200">
-          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&w=600&q=80" alt="Portrait in soft light" />
-          <div class="photo-info">
-            <h3>Golden hour portrait</h3>
-            <span>Portrait • 2025</span>
-          </div>
-        </article>
-
-        <article class="photo-card" data-full-src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&w=1200">
-          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&w=600&q=80" alt="Minimal landscape in fog" />
-          <div class="photo-info">
-            <h3>Morning mist</h3>
-            <span>Landscape • 2025</span>
-          </div>
-        </article>
-
-        <article class="photo-card" data-full-src="https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&w=1200">
-          <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&w=600&q=80" alt="City reflections" />
-          <div class="photo-info">
-            <h3>City reflections</h3>
-            <span>Street • 2024</span>
-          </div>
-        </article>
-
-        <article class="photo-card" data-full-src="https://images.unsplash.com/photo-1498550744921-75f79806b8a7?auto=format&w=1200">
-          <img src="https://images.unsplash.com/photo-1498550744921-75f79806b8a7?auto=format&w=600&q=80" alt="Flower closeup" />
-          <div class="photo-info">
-            <h3>Wildflowers</h3>
-            <span>Macro • 2024</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
     <!-- CONTACT PAGE -->
     <section class="page" data-page="contact">
       <header class="page-header">
         <h2>Contact</h2>
-        <p>For shoots, prints, or collaborations.</p>
+        <p>Pour shootings, tirages ou collaborations.</p>
       </header>
 
       <div class="contact-card">
@@ -766,18 +725,18 @@
           </a>
         </p>
         <p>
-          You can also add your social links here:
+          Réseaux sociaux:
           <br />
           <a href="https://instagram.com/" target="_blank" rel="noreferrer">
             Instagram
           </a>
           ·
-          <a href="https://github.com/" target="_blank" rel="noreferrer">
-            GitHub
+          <a href="https://pinterest.com/" target="_blank" rel="noreferrer">
+            Pinterest
           </a>
           ·
-          <a href="https://linkedin.com/" target="_blank" rel="noreferrer">
-            LinkedIn
+          <a href="https://tiktok.com/" target="_blank" rel="noreferrer">
+            TikTok
           </a>
         </p>
       </div>
@@ -785,7 +744,27 @@
   </main>
 
   <footer class="site-footer">
-    <p>© 2025 Soazig de Kermenguy. Photography in pastel light.</p>
+    <div class="hero-card" style="max-width: 520px; margin: 0 auto;">
+      <div class="hero-tag">Disponible pour 2027!</div>
+      <div class="hero-stats">
+        <div>
+          <span class="stat-number">300+</span>
+          <span class="stat-label">Photos</span>
+        </div>
+        <div>
+          <span class="stat-number">3</span>
+          <span class="stat-label">Années d'expérience</span>
+        </div>
+      </div>
+      <ul class="pill-list social-pills">
+        <li><a href="https://instagram.com/" target="_blank" rel="noreferrer">Instagram</a></li>
+        <li><a href="https://pinterest.com/" target="_blank" rel="noreferrer">Pinterest</a></li>
+        <li><a href="https://tiktok.com/" target="_blank" rel="noreferrer">TikTok</a></li>
+        <li><a href="https://youtube.com/" target="_blank" rel="noreferrer">YouTube</a></li>
+        <li><a href="https://linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a></li>
+      </ul>
+      <p style="margin-top: 1rem; font-size: 0.75rem;">© 2025 Soazig de Kermenguy. Photography in pastel light.</p>
+    </div>
   </footer>
 
   <!-- Lightbox -->
@@ -852,7 +831,7 @@
       });
     });
 
-    // Lightbox
+    // Lightbox pour portfolio
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-image");
     const lightboxClose = document.querySelector(".lightbox-close");
