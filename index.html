@@ -588,11 +588,51 @@ body::-webkit-scrollbar {
 
     
     /* Responsive */
-    @media (min-width: 801px) {
-      .nav-item:hover .nav-submenu {
-        display: flex;
-      }
-    }
+   @media (max-width: 800px) {
+  .site-nav {
+    position: fixed;
+    top: 64px; /* ✅ CORRIGÉ : était "inset: 64px 5vw auto" */
+    left: 5vw;
+    right: 5vw;
+    padding: 1.2rem; /* ✅ Plus d'espace */
+    border-radius: 20px;
+    background: rgba(253, 251, 255, 0.98);
+    box-shadow: 0 20px 50px rgba(84, 73, 134, 0.35);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8rem; /* ✅ Espacement entre items */
+    transform: translateY(-100%); /* ✅ translateY au lieu de -150% */
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .site-nav.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* ✅ SOUS-MENUS mobiles plus visibles */
+  .nav-submenu {
+    position: static !important;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.8rem;
+    border-radius: 12px;
+    margin-top: 0.5rem;
+    display: none;
+  }
+
+  .nav-item.is-open .nav-submenu {
+    display: flex !important;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+}
+
 
     @media (max-width: 800px) {
       main {
