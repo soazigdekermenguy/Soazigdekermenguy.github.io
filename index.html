@@ -93,6 +93,25 @@ body::-webkit-scrollbar {
   gap: 1.1rem;
   font-size: 0.9rem;
 }
+.site-nav a {
+  text-decoration: none;
+  color: var(--text-soft);
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.site-nav a:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-main);
+  transform: translateY(-1px);
+}
+
+.site-nav a.is-active {
+  background: rgba(255, 255, 255, 1);
+  color: var(--text-main);
+  box-shadow: 0 6px 18px rgba(164, 200, 255, 0.4);
+}
 
 .nav-item {
   position: relative;
