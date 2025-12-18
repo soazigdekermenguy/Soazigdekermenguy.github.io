@@ -35,6 +35,19 @@
       -webkit-font-smoothing: antialiased;
       min-height: 100vh;
     }
+/* Masquer la barre de défilement partout */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Edge */
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
 
     /* Background blur image */
     .bg-blur {
