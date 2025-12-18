@@ -273,6 +273,9 @@
       background: rgba(255, 255, 255, 0.9);
       border: 1px solid var(--border-subtle);
     }
+.pill-list--about {
+  margin-top: 1rem;
+}
 
     /* Gallery page */
 
@@ -416,6 +419,31 @@
       text-align: center;
     }
 
+.bg-blur {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&w=1600&q=70");
+  background-size: cover;
+  background-position: center;
+  filter: blur(14px);
+  transform: scale(1.05); /* pour éviter les bords nets après blur */
+}
+
+/* Optionnel : léger voile pour garder la lisibilité */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at top left, rgba(255, 238, 253, 0.65), transparent 40%),
+              radial-gradient(circle at bottom right, rgba(227, 242, 255, 0.65), transparent 40%);
+}
+
+
+
+
+    
     /* Responsive */
 
     @media (max-width: 800px) {
@@ -463,6 +491,7 @@
   </style>
 </head>
 <body>
+  <div class="bg-blur"></div>
   <header class="site-header">
     <div class="logo">S2K</div>
 
@@ -514,16 +543,17 @@
     <h2 style="margin-bottom: 0.8rem;">À propos</h2>
     <p>J'ai 19 ans je suis en études de ... à ... et ...</p>
     <p>Je capture les moments uniques et précieux blabla .....</p>
+
+    <ul class="pill-list pill-list--about">
+      <li>Mariages</li>
+      <li>Couples</li>
+      <li>Soirée</li>
+      <li>Scouts</li>
+      <li>Nature</li>
+    </ul>
   </div>
-  
-  <ul class="pill-list">
-    <li>Mariages</li>
-    <li>Couples</li>
-    <li>Soirée</li>
-    <li>Scouts</li>
-    <li>Nature</li>
-  </ul>
 </div>
+
     </section>
 
 
