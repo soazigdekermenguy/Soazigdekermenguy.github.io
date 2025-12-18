@@ -382,55 +382,101 @@ body::-webkit-scrollbar {
     }
 
     /* Lightbox for portfolio pages */
-    .lightbox-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(5, 2, 25, 0.78);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 60;
-    }
 
-    .lightbox-backdrop.is-open {
-      display: flex;
-    }
+/* Lightbox améliorée */
+.lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 2, 25, 0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
 
-    .lightbox-inner {
-      max-width: min(90vw, 960px);
-      max-height: min(80vh, 640px);
-      background: #060417;
-      border-radius: 18px;
-      padding: 0.7rem;
-      box-shadow: 0 26px 80px rgba(0, 0, 0, 0.6);
-      position: relative;
-    }
+.lightbox-backdrop.is-open {
+  display: flex;
+}
 
-    .lightbox-inner img {
-      display: block;
-      width: 100%;
-      height: min(70vh, 560px);
-      object-fit: contain;
-      border-radius: 12px;
-      background: #000;
-    }
+.lightbox-inner {
+  max-width: 95vw;
+  max-height: 95vh;
+  width: 90%;
+  height: 80vh;
+  background: #0a071a;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 32px 100px rgba(0, 0, 0, 0.8);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .lightbox-close {
-      position: absolute;
-      top: 0.6rem;
-      right: 0.6rem;
-      border: 0;
-      border-radius: 999px;
-      width: 32px;
-      height: 32px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      cursor: pointer;
-      background: rgba(6, 4, 23, 0.8);
-      color: #fff;
-    }
+.lightbox-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+/* Boutons navigation */
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-prev { left: 1rem; }
+.lightbox-next { right: 1rem; }
+
+.lightbox-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+
+
+
+    
 
     /* Footer */
     .site-footer {
@@ -440,42 +486,81 @@ body::-webkit-scrollbar {
       text-align: center;
     }
 
-    /* Portfolio gallery grid */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.6rem;
-      max-width: 1200px;
-    }
+    /* Pinterest-style gallery - 5 colonnes large écran */
+.gallery-grid {
+  column-count: 5;
+  column-gap: 1.2rem;
+  column-fill: auto;
+  max-width: 1400px;
+  margin: 0 auto;
+}
 
-    .photo-card {
-      position: relative;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: 0 18px 40px rgba(179, 165, 216, 0.25);
-      background: rgba(255, 255, 255, 0.96);
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      cursor: zoom-in;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
+.photo-card {
+  position: relative;
+  break-inside: avoid;
+  margin-bottom: 1.2rem;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(179, 165, 216, 0.22);
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  cursor: zoom-in;
+  transition: all 0.25s ease;
+}
 
-    .photo-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 26px 60px rgba(179, 165, 216, 0.35);
-    }
+.photo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(179, 165, 216, 0.32);
+}
 
-    .photo-card img {
-      display: block;
-      width: 100%;
-      height: 230px;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-    }
+.photo-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
 
-    .photo-card:hover img {
-      transform: scale(1.04);
-    }
+.photo-card:hover img {
+  transform: scale(1.02);
+}
 
+.photo-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 1.1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: #fff;
+  font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 1400px) {
+  .gallery-grid { column-count: 4; }
+}
+@media (max-width: 1100px) {
+  .gallery-grid { column-count: 3; }
+}
+@media (max-width: 800px) {
+  .gallery-grid { 
+    column-count: 2; 
+    column-gap: 1rem;
+    margin: 0 -0.5rem;
+  }
+  .photo-card { margin: 0 0.5rem 1rem; }
+}
+@media (max-width: 500px) {
+  .gallery-grid { column-count: 1; }
+}
+
+
+
+
+
+    
+
+    
     /* Responsive */
     @media (min-width: 801px) {
       .nav-item:hover .nav-submenu {
@@ -623,22 +708,55 @@ body::-webkit-scrollbar {
     </section>
 
     <!-- PORTFOLIO MARIAGE -->
-    <section class="page" data-page="portfolio-mariage">
-      <header class="page-header">
-        <h2>Portfolio · Mariage</h2>
-        <p>Une sélection de mariages que j'ai accompagnés.</p>
-      </header>
-      <div class="gallery-grid">
-        <article class="photo-card" data-full-src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&w=1200">
-          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&w=600&q=80" alt="Portrait in soft light" />
-          <div class="photo-info">
-            <h3>Golden hour portrait</h3>
-            <span>Portrait • 2025</span>
-          </div>
-        </article>
-        <!-- Ajoute plus de photos ici -->
+   <!-- PORTFOLIO MARIAGE -->
+<section class="page" data-page="portfolio-mariage">
+  <header class="page-header">
+    <h2>Portfolio · Mariage</h2>
+    <p>Une sélection de mariages que j'ai accompagnés.</p>
+  </header>
+  <div class="gallery-grid">
+    <article class="photo-card" data-full-src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&w=1200">
+      <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&w=500&q=85" alt="Mariage" />
+      <div class="photo-info">
+        <h3>Cérémonie</h3>
+        <span>Mariage • 2025</span>
       </div>
-    </section>
+    </article>
+    <article class="photo-card" data-full-src="https://images.unsplash.com/photo-1571896349840-0d2d1ba8f7bf?auto=format&w=1200">
+      <img src="https://images.unsplash.com/photo-1571896349840-0d2d1ba8f7bf?auto=format&w=500&q=85" alt="Baiser" />
+      <div class="photo-info">
+        <h3>Premier baiser</h3>
+        <span>Mariage • 2025</span>
+      </div>
+    </article>
+    <article class="photo-card" data-full-src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&w=1200">
+      <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&w=500&q=85" alt="Alliance" />
+      <div class="photo-info">
+        <h3>Échange d'alliances</h3>
+        <span>Mariage • 2024</span>
+      </div>
+    </article>
+    <article class="photo-card" data-full-src="https://images.unsplash.com/photo-1569016602078-f2c0bd3e1f37?auto=format&w=1200">
+      <img src="https://images.unsplash.com/photo-1569016602078-f2c0bd3e1f37?auto=format&w=500&q=85" alt="Réception" />
+      <div class="photo-info">
+        <h3>Réception</h3>
+        <span>Mariage • 2025</span>
+      </div>
+    </article>
+    <article class="photo-card" data-full-src="https://images.unsplash.com/photo-1517443440416-9ca7853223e3?auto=format&w=1200">
+      <img src="https://images.unsplash.com/photo-1517443440416-9ca7853223e3?auto=format&w=500&q=85" alt="Danse" />
+      <div class="photo-info">
+        <h3>Ouverture de bal</h3>
+        <span>Mariage • 2024</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+
+
+    
 
     <!-- PORTFOLIO COUPLE -->
     <section class="page" data-page="portfolio-couple">
@@ -797,36 +915,67 @@ body::-webkit-scrollbar {
     });
 
     // Lightbox pour portfolio
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImg = document.getElementById("lightbox-image");
-    const lightboxClose = document.querySelector(".lightbox-close");
+    // Lightbox améliorée avec navigation
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.querySelector("#lightbox-image");
+const lightboxClose = document.querySelector(".lightbox-close");
+let currentIndex = 0;
+let galleryImages = [];
 
-    document.querySelectorAll(".photo-card").forEach((card) => {
-      card.addEventListener("click", () => {
-        const src = card.dataset.fullSrc || card.querySelector("img").src;
-        lightboxImg.src = src;
-        lightbox.classList.add("is-open");
-      });
-    });
+// HTML lightbox mis à jour
+/*
+<div class="lightbox-backdrop" id="lightbox">
+  <button class="lightbox-nav lightbox-prev" aria-label="Précédent">‹</button>
+  <div class="lightbox-inner">
+    <button class="lightbox-close" aria-label="Close">×</button>
+    <img src="" alt="Photo" id="lightbox-image" class="lightbox-image" />
+  </div>
+  <button class="lightbox-nav lightbox-next" aria-label="Suivant">›</button>
+</div>
+*/
 
-    lightboxClose.addEventListener("click", () => {
-      lightbox.classList.remove("is-open");
-      lightboxImg.src = "";
-    });
+document.querySelectorAll(".photo-card").forEach((card, index) => {
+  card.addEventListener("click", () => {
+    currentIndex = index;
+    galleryImages = Array.from(document.querySelectorAll(".photo-card[data-full-src]")).map(c => c.dataset.fullSrc);
+    openLightbox();
+  });
+});
 
-    lightbox.addEventListener("click", (e) => {
-      if (e.target === lightbox) {
-        lightbox.classList.remove("is-open");
-        lightboxImg.src = "";
-      }
-    });
+function openLightbox() {
+  lightboxImg.src = galleryImages[currentIndex];
+  lightbox.classList.add("is-open");
+  document.body.style.overflow = "hidden";
+}
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        lightbox.classList.remove("is-open");
-        lightboxImg.src = "";
-      }
-    });
+function closeLightbox() {
+  lightbox.classList.remove("is-open");
+  document.body.style.overflow = "";
+}
+
+// Navigation
+document.querySelector(".lightbox-prev")?.addEventListener("click", () => {
+  currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+  lightboxImg.src = galleryImages[currentIndex];
+});
+
+document.querySelector(".lightbox-next")?.addEventListener("click", () => {
+  currentIndex = (currentIndex + 1) % galleryImages.length;
+  lightboxImg.src = galleryImages[currentIndex];
+});
+
+// Clavier + swipe
+document.addEventListener("keydown", (e) => {
+  if (!lightbox.classList.contains("is-open")) return;
+  if (e.key === "Escape") closeLightbox();
+  if (e.key === "ArrowLeft") document.querySelector(".lightbox-prev").click();
+  if (e.key === "ArrowRight") document.querySelector(".lightbox-next").click();
+});
+
+
+
+
+    
   </script>
 </body>
 </html>
