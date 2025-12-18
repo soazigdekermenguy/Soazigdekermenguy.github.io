@@ -73,110 +73,85 @@
       box-shadow: 0 10px 30px rgba(216, 173, 204, 0.45);
     }
 
-    .site-nav {
-      display: flex;
-      align-items: center;
-      gap: 1.1rem;
-      font-size: 0.9rem;
-    }
 
-    .nav-item {
-      position: relative;
-    }
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  font-size: 0.9rem;
+}
 
-    .nav-parent {
-      border: 0;
-      background: transparent;
-      font: inherit;
-      color: var(--text-soft);
-      padding: 0.35rem 0.8rem;
-      border-radius: 999px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
-    }
+.nav-item {
+  position: relative;
+}
 
-    .nav-parent::after {
-      content: "▾";
-      font-size: 0.7rem;
-    }
+.nav-parent {
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: var(--text-soft);
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
 
-    .nav-parent:hover {
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--text-main);
-      transform: translateY(-1px);
-    }
+.nav-parent::after {
+  content: "▾";
+  font-size: 0.7rem;
+}
 
-    .nav-submenu {
-      position: absolute;
-      top: 120%;
-      left: 0;
-      min-width: 160px;
-      padding: 0.4rem;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.98);
-      box-shadow: 0 14px 30px rgba(84, 73, 134, 0.26);
-      display: none;
-      flex-direction: column;
-      gap: 0.1rem;
-      z-index: 40;
-    }
+.nav-parent:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-main);
+  transform: translateY(-1px);
+}
 
-    .nav-submenu a {
-      display: block;
-      padding: 0.45rem 0.8rem;
-      border-radius: 999px;
-      text-decoration: none;
-      color: var(--text-soft);
-      font-size: 0.86rem;
-      white-space: nowrap;
-    }
+.nav-submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 180px;
+  padding: 0.4rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 14px 30px rgba(84, 73, 134, 0.26);
+  display: none;
+  flex-direction: column;
+  gap: 0.1rem;
+  z-index: 50;
+}
 
-    .nav-submenu a:hover {
-      background: var(--bg-soft);
-      color: var(--text-main);
-    }
+/* ✅ LA MAGIE : hover + focus-within */
+.nav-item.has-submenu:hover .nav-submenu,
+.nav-item.has-submenu:focus-within .nav-submenu {
+  display: flex;
+}
 
-    .site-nav a,
-    .nav-submenu a {
-      text-decoration: none;
-      color: var(--text-soft);
-      padding: 0.35rem 0.8rem;
-      border-radius: 999px;
-      transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
-    }
+.nav-submenu a {
+  display: block;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--text-soft);
+  font-size: 0.86rem;
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease;
+}
 
-    .site-nav a:hover,
-    .nav-submenu a:hover {
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--text-main);
-      transform: translateY(-1px);
-    }
+.nav-submenu a:hover {
+  background: var(--bg-soft);
+  color: var(--text-main);
+}
 
-    .site-nav a.is-active {
-      background: rgba(255, 255, 255, 1);
-      color: var(--text-main);
-      box-shadow: 0 6px 18px rgba(164, 200, 255, 0.4);
-    }
 
-    .nav-toggle {
-      display: none;
-      background: none;
-      border: 0;
-      padding: 0.2rem;
-      cursor: pointer;
-    }
 
-    .nav-toggle span {
-      display: block;
-      width: 20px;
-      height: 2px;
-      margin: 3px 0;
-      background: var(--text-main);
-      border-radius: 99px;
-    }
+
+
+    
 
     /* Pages */
     main {
