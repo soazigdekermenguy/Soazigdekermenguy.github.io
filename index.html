@@ -400,8 +400,6 @@ body::-webkit-scrollbar {
       text-decoration: underline;
     }
 
-    /* Lightbox for portfolio pages */
-
 /* Lightbox améliorée */
 .lightbox-backdrop {
   position: fixed;
@@ -507,27 +505,27 @@ body::-webkit-scrollbar {
 
     /* Pinterest-style gallery - 5 colonnes large écran */
 
-
-    .gallery-grid {
+.gallery-grid {
   column-count: 5;
-  column-gap: 1.2rem;
+  column-gap: 1.5rem;
   column-fill: auto;
   max-width: 1400px;
   margin: 0 auto;
+  padding: 1rem 0;
 }
 
 .photo-card {
   position: relative;
   break-inside: avoid;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
   border-radius: var(--radius-lg);
-  overflow: hidden; /* ✅ Important pour couper les débordements */
+  overflow: hidden;
   box-shadow: 0 12px 32px rgba(179, 165, 216, 0.22);
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(255, 255, 255, 0.9);
   cursor: zoom-in;
   transition: all 0.25s ease;
-  max-height: 400px; /* ✅ Limite la hauteur max */
+  display: block; /* ✅ Pinterest essential */
 }
 
 .photo-card:hover {
@@ -537,8 +535,7 @@ body::-webkit-scrollbar {
 
 .photo-card img {
   width: 100%;
-  height: 100%; /* ✅ CHANGÉ : remplace height: auto */
-  object-fit: cover; /* ✅ NOUVEAU : cadre l'image parfaitement */
+  height: auto; /* ✅ Hauteurs naturelles Pinterest */
   display: block;
   transition: transform 0.3s ease;
 }
@@ -552,13 +549,23 @@ body::-webkit-scrollbar {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 1rem 1.1rem;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 1rem 1.1rem 0.8rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
   color: #fff;
   font-size: 0.85rem;
 }
 
-/* Responsive */
+.photo-info h3 {
+  margin: 0 0 0.2rem;
+  font-size: 1rem;
+}
+
+.photo-info span {
+  opacity: 0.9;
+  font-size: 0.8rem;
+}
+
+/* Responsive Pinterest */
 @media (max-width: 1400px) {
   .gallery-grid { column-count: 4; }
 }
@@ -568,18 +575,15 @@ body::-webkit-scrollbar {
 @media (max-width: 800px) {
   .gallery-grid { 
     column-count: 2; 
-    column-gap: 1rem;
-    margin: 0 -0.5rem;
-  }
-  .photo-card { 
-    margin: 0 0.5rem 1rem; 
-    max-height: 350px;
+    column-gap: 1.2rem;
   }
 }
 @media (max-width: 500px) {
-  .gallery-grid { column-count: 1; }
+  .gallery-grid { 
+    column-count: 1; 
+    column-gap: 1rem;
+  }
 }
-
 
 
 
