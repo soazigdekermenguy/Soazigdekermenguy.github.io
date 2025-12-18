@@ -24,17 +24,98 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      font-family: var(--font-sans);
-      font-size: 16px;
-      background:
-        radial-gradient(circle at top left, #ffeefd 0, var(--bg) 36%),
-        radial-gradient(circle at bottom right, #e3f2ff 0, var(--bg-soft) 40%);
-      color: var(--text-main);
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-    }
+    /* GLOBAL TEXT STYLES */
+body {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  text-align: center; /* Center text by default */
+  color: var(--text-main);
+}
+
+h1, h2, h3, h4 {
+  font-weight: 700; /* Make titles thicker */
+  letter-spacing: -0.01em;
+}
+
+p {
+  font-weight: 450;
+  color: var(--text-soft);
+  margin-bottom: 1rem;
+}
+
+/* Hero section centered */
+.home-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+}
+
+.hero-title {
+  font-size: clamp(2.8rem, 4.8vw, 3.8rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+/* Button readability */
+.btn {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 1rem 2rem;
+}
+
+/* About section centered */
+.about-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.page-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.page-header p {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+/* Center contact & footer content */
+.contact-card,
+.hero-card {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.site-footer {
+  text-align: center;
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+/* Pills more readable */
+.pill-list li,
+.social-pills li {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
 /* Masquer la barre de défilement partout */
 html {
   scrollbar-width: none; /* Firefox */
