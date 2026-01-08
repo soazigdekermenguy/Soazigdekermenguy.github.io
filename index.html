@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikon Camera Game</title>
+    <style>
+        body { margin: 0; height: 100vh; background: linear-gradient(135deg, #2c3e50, #34495e); display: flex; justify-content: center; align-items: center; font-family: Arial, sans-serif; overflow: hidden; }
+        .camera-container { position: relative; width: 400px; height: 300px; cursor: pointer; transition: transform 0.3s ease; }
+        .camera-container:hover { transform: scale(1.05); }
+        .camera-body { width: 100%; height: 100%; background: linear-gradient(145deg, #1a1a1a, #333); border-radius: 20px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .lens { position: absolute; top: 20%; left: 50%; transform: translateX(-50%); width: 120px; height: 120px; background: radial-gradient(circle, #444 0%, #111 70%); border-radius: 50%; border: 8px solid #555; box-shadow: inset 0 0 20px #000; }
+        .screen { position: absolute; top: 35%; left: 60%; width: 100px; height: 70px; background: #000; border: 3px solid #333; border-radius: 8px; overflow: hidden; opacity: 0; transition: opacity 0.5s ease; }
+        .screen.active { opacity: 1; }
+        .screen img { width: 100%; height: 100%; object-fit: cover; }
+        .shutter-button { position: absolute; top: 75%; right: 15%; width: 40px; height: 40px; background: radial-gradient(circle, #ff4444, #cc0000); border-radius: 50%; border: 4px solid #fff; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.3); transition: transform 0.1s; }
+        .shutter-button:active { transform: scale(0.95); background: #ff6666; }
+        .shutter-button::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 20px; height: 20px; background: #fff; border-radius: 50%; }
+        .instruction { position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 14px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="camera-container" id="camera">
+        <div class="camera-body">
+            <div class="lens"></div>
+            <div class="screen" id="screen">
+                <img id="photo" src="" alt="Photo">
+            </div>
+            <div class="shutter-button" id="shutter"></div>
+        </div>
+        <div class="instruction">Click camera to view screen, then shutter to take photos!</div>
+    </div>
 
+    <script>
+        const photos = [
+            'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=200&fit=crop', // Replace with your photos
+            'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=300&h=200&fit=crop',
+            'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=300&h=200&fit=crop',
+            'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=300&h=200&fit=crop'
+        ];
+        let currentPhotoIndex = 0;
+        const camera = document.getElementById('camera');
+        const screen = document.getElementById('screen');
+        const shutter = document.getElementById('shutter');
+        const photo = document.getElementById('photo');
+
+        camera.addEventListener('click', () => {
+            screen.classList.toggle('active');
+            if (screen.classList.contains('active')) {
+                photo.src = photos[currentPhotoIndex];
+            }
+        });
+
+        shutter.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (screen.classList.contains('active')) {
+                currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+                photo.src = photos[currentPhotoIndex];
+                // Flash effect
+                shutter.style.background = '#ffff44';
+                setTimeout(() => { shutter.style.background = 'radial-gradient(circle, #ff4444, #cc0000)'; }, 100);
+            }
+        });
+    </script>
+</body>
+</html>
