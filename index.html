@@ -2,23 +2,20 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Soazig de Kermenguy</title>
+  <title>Soazig de Kermenguy - Photographe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
     :root {
-      --bg-primary: #0a0a0e;
-      --bg-secondary: #1a1a22;
-      --accent-gold: #d4af37;
-      --accent-warm: #f4a261;
-      --text-light: #f8faf9;
-      --text-muted: #a8b2b9;
+      --bg-dark: #0d1117;
+      --bg-card: rgba(20, 25, 35, 0.9);
+      --accent-gradient: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+      --text-primary: #ffffff;
+      --text-secondary: #b0b3b8;
+      --shadow-3d: 0 20px 40px rgba(0,0,0,0.3);
+      --border-glow: 0 0 20px rgba(255, 107, 107, 0.3);
       --glass-bg: rgba(255, 255, 255, 0.05);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --shadow-heavy: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      --shadow-glow: 0 0 30px rgba(212, 175, 55, 0.3);
-      --border-radius: 24px;
-      --font-display: 'Helvetica Neue', -apple-system, sans-serif;
+      --radius-soft: 20px;
     }
 
     * { 
@@ -28,58 +25,57 @@
     }
 
     body {
-      font-family: var(--font-display);
-      background: 
-        radial-gradient(ellipse at top left, rgba(244, 162, 97, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at bottom right, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
-        linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-      color: var(--text-light);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
       line-height: 1.6;
-      min-height: 100vh;
       overflow-x: hidden;
+      position: relative;
     }
 
-    /* Scrollbar custom */
-    html { scrollbar-width: thin; scrollbar-color: var(--accent-gold) transparent; }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { 
-      background: var(--accent-gold); 
-      border-radius: 4px; 
+    /* Éléments photo overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,107,107,0.02) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(254,202,87,0.01) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
     }
 
-    /* Container principal */
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    /* Header moderne avec glassmorphism */
+    /* Header avec filmstrip */
     .header {
-      position: sticky;
+      position: fixed;
       top: 0;
-      z-index: 100;
+      width: 100%;
+      background: rgba(13, 17, 23, 0.95);
       backdrop-filter: blur(20px);
-      background: var(--glass-bg);
-      border-bottom: 1px solid var(--glass-border);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      z-index: 1000;
       padding: 1rem 0;
     }
 
-    .header-inner {
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
     .logo {
-      font-size: 1.5rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--accent-gold), var(--accent-warm));
+      font-size: 2rem;
+      font-weight: 900;
+      background: var(--accent-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      letter-spacing: -0.02em;
+      text-shadow: 0 0 30px rgba(255,107,107,0.5);
     }
 
     .nav {
@@ -89,435 +85,418 @@
     }
 
     .nav-link {
-      color: var(--text-light);
+      color: var(--text-secondary);
       text-decoration: none;
       font-weight: 500;
-      padding: 0.5rem 1rem;
-      border-radius: 12px;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.1);
       transition: all 0.3s ease;
       position: relative;
+      overflow: hidden;
     }
 
-    .nav-link:hover, .nav-link.active {
-      background: var(--glass-bg);
-      box-shadow: var(--shadow-glow);
-      transform: translateY(-2px);
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: var(--accent-gradient);
+      opacity: 0.2;
+      transition: left 0.3s ease;
     }
 
-    .hamburger {
+    .nav-link:hover::before {
+      left: 0;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+      border-color: rgba(255,255,255,0.3);
+      box-shadow: var(--border-glow);
+    }
+
+    .mobile-menu {
       display: none;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
       background: none;
       border: none;
       cursor: pointer;
-      padding: 0.5rem;
     }
 
-    .hamburger span {
-      width: 28px;
+    .mobile-menu span {
+      width: 30px;
       height: 3px;
-      background: var(--accent-gold);
+      background: var(--accent-gradient);
+      background-clip: text;
       border-radius: 2px;
       transition: 0.3s;
     }
 
-    /* Hero section dramatique */
+    /* Hero avec overlay photo */
     .hero {
-      text-align: center;
-      padding: 8rem 0 6rem;
+      height: 100vh;
       position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
     }
 
-    .hero-badge {
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      right: 0; bottom: 0;
+      background: 
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 2px,
+          rgba(255,255,255,0.03) 2px,
+          rgba(255,255,255,0.03) 4px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(255,255,255,0.03) 2px,
+          rgba(255,255,255,0.03) 4px
+        );
+      animation: filmstrip 20s linear infinite;
+    }
+
+    @keyframes filmstrip {
+      0% { transform: translateX(0) translateY(0); }
+      100% { transform: translateX(-100px) translateY(-100px); }
+    }
+
+    .hero-content {
+      max-width: 900px;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .badge {
       display: inline-block;
-      background: linear-gradient(45deg, var(--accent-gold), var(--accent-warm));
-      color: var(--bg-primary);
-      padding: 0.5rem 1.5rem;
+      background: rgba(255,107,107,0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,107,107,0.3);
+      padding: 0.75rem 2rem;
       border-radius: 50px;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       margin-bottom: 2rem;
-      box-shadow: var(--shadow-glow);
+      box-shadow: 0 10px 30px rgba(255,107,107,0.2);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 10px 30px rgba(255,107,107,0.2); }
+      50% { box-shadow: 0 10px 40px rgba(255,107,107,0.4); }
     }
 
     .hero h1 {
-      font-size: clamp(3rem, 8vw, 6rem);
+      font-size: clamp(4rem, 10vw, 8rem);
       font-weight: 900;
-      background: linear-gradient(135deg, var(--text-light) 0%, #e8e8e8 100%);
+      background: var(--accent-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 1.5rem;
-      line-height: 1.1;
+      line-height: 1;
+      text-shadow: 0 0 40px rgba(255,107,107,0.5);
     }
 
-    .hero-subtitle {
-      font-size: 1.3rem;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-      font-weight: 400;
-    }
-
-    .locations {
+    .hero-locations {
       display: flex;
       justify-content: center;
-      gap: 2rem;
+      gap: 3rem;
       margin: 2rem 0;
-      font-size: 1.2rem;
-      font-weight: 500;
+      font-size: 1.4rem;
+      font-weight: 600;
     }
 
-    .location-item {
+    .location {
       position: relative;
+      padding: 1rem 2rem;
+      background: var(--glass-bg);
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
-    .location-item:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      right: -1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 2rem;
-      height: 1px;
-      background: var(--accent-gold);
-    }
-
-    .cta-buttons {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 3rem;
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 600px;
+      margin: 4rem auto 0;
     }
 
     .btn {
-      padding: 1rem 2.5rem;
+      padding: 1.5rem 3rem;
       border-radius: 50px;
-      font-weight: 600;
+      font-size: 1.1rem;
+      font-weight: 700;
       text-decoration: none;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 0.5rem;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      font-size: 1rem;
+      justify-content: center;
+      gap: 1rem;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
       overflow: hidden;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent-gold), var(--accent-warm));
-      color: var(--bg-primary);
-      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.6);
+      background: var(--accent-gradient);
+      color: #000;
+      box-shadow: 0 20px 40px rgba(255,107,107,0.4);
     }
 
     .btn-secondary {
       background: var(--glass-bg);
-      color: var(--text-light);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,0.2);
+      color: var(--text-primary);
+      backdrop-filter: blur(20px);
     }
 
-    .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateY(-2px);
+    .btn:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
     }
 
     /* Sections */
     .section {
-      padding: 6rem 0;
+      padding: 8rem 0;
+      position: relative;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 6rem;
     }
 
     .section-title {
-      text-align: center;
-      font-size: 3rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, var(--text-light), var(--accent-gold));
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 900;
+      background: var(--accent-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
     }
 
-    .section-subtitle {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto 4rem;
-    }
-
-    .glass-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--border-radius);
-      padding: 3rem;
-      box-shadow: var(--shadow-heavy);
-      transition: all 0.3s ease;
-    }
-
-    .glass-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 35px 60px rgba(0, 0, 0, 0.6);
-    }
-
-    /* Gallery moderne */
-    .gallery {
+    /* Galerie avec effets photo */
+    .photo-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
       gap: 2rem;
       padding: 2rem 0;
     }
 
-    .gallery-item {
+    .photo-card {
       position: relative;
-      height: 450px;
-      border-radius: 20px;
+      height: 500px;
+      border-radius: var(--radius-soft);
       overflow: hidden;
       cursor: pointer;
-      transition: all 0.4s ease;
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.5s ease;
     }
 
-    .gallery-item::before {
+    .photo-card::before {
       content: '';
       position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 2;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      background: #000;
+      border-radius: var(--radius-soft);
+      z-index: 1;
+      box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
     }
 
-    .gallery-item img {
+    .photo-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.4s ease;
+      position: relative;
+      z-index: 2;
+      transition: all 0.5s ease;
     }
 
-    .gallery-item:hover {
-      transform: scale(1.03);
-    }
-
-    .gallery-item:hover::before {
-      opacity: 1;
-    }
-
-    .gallery-item:hover img {
-      transform: scale(1.1);
-    }
-
-    .gallery-info {
+    .photo-overlay {
       position: absolute;
-      bottom: 2rem;
-      left: 2rem;
-      right: 2rem;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.3s ease;
-      z-index: 3;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.9));
+      padding: 2rem;
+      transform: translateY(100%);
+      transition: all 0.4s ease;
     }
 
-    .gallery-item:hover .gallery-info {
-      opacity: 1;
+    .photo-card:hover {
+      transform: translateY(-20px) scale(1.02);
+      box-shadow: var(--shadow-3d), var(--border-glow);
+    }
+
+    .photo-card:hover img {
+      filter: brightness(1.1) contrast(1.1);
+    }
+
+    .photo-card:hover .photo-overlay {
       transform: translateY(0);
     }
 
-    .gallery-title {
+    .photo-title {
       font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
     }
 
-    .gallery-category {
-      color: var(--accent-gold);
-      font-weight: 500;
-    }
-
-    /* Contact */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 3rem;
-      margin-top: 4rem;
+    /* Contact card */
+    .contact-card {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--glass-bg);
+      backdrop-filter: blur(30px);
+      border-radius: var(--radius-soft);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 4rem;
+      text-align: center;
+      box-shadow: var(--shadow-3d);
     }
 
     /* Footer */
     .footer {
-      background: var(--bg-primary);
       padding: 4rem 0 2rem;
       text-align: center;
-      border-top: 1px solid var(--glass-border);
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
 
-    .social-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
       margin: 2rem 0;
+      flex-wrap: wrap;
     }
 
     .social-link {
-      color: var(--text-muted);
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.1);
       text-decoration: none;
-      padding: 1rem;
-      border-radius: 16px;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
       transition: all 0.3s ease;
     }
 
     .social-link:hover {
-      background: var(--accent-gold);
-      color: var(--bg-primary);
-      transform: translateY(-4px);
+      background: var(--accent-gradient);
+      color: #000;
+      transform: translateY(-5px);
     }
 
-    /* Lightbox premium */
+    /* Lightbox */
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(10, 10, 14, 0.95);
-      backdrop-filter: blur(8px);
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(10px);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
-      padding: 2rem;
+      z-index: 2000;
     }
 
     .lightbox.active {
       display: flex;
     }
 
-    .lightbox-inner {
-      position: relative;
-      max-width: 90vw;
-      max-height: 90vh;
-      width: 100%;
-      height: 100%;
-    }
-
     .lightbox img {
-      max-width: 100%;
-      max-height: 100%;
+      max-width: 95vw;
+      max-height: 95vh;
       object-fit: contain;
-      border-radius: 16px;
-    }
-
-    .lightbox-close {
-      position: absolute;
-      top: -3rem;
-      right: 0;
-      background: var(--accent-gold);
-      color: var(--bg-primary);
-      border: none;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      font-size: 1.5rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Animations */
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .float {
-      animation: float 6s ease-in-out infinite;
+      border-radius: 20px;
+      box-shadow: 0 0 100px rgba(255,107,107,0.5);
     }
 
     /* Responsive */
     @media (max-width: 768px) {
-      .hamburger { display: flex; }
       .nav { display: none; }
-      .nav.mobile { 
-        display: flex;
+      .mobile-menu { display: flex; }
+      
+      .hero-locations {
         flex-direction: column;
-        position: fixed;
-        top: 80px;
-        left: 0;
-        right: 0;
-        background: var(--glass-bg);
-        backdrop-filter: blur(20px);
-        padding: 2rem;
-        border-radius: 0 0 24px 24px;
+        gap: 1rem;
       }
-
-      .hero { padding: 4rem 0; }
-      .hero h1 { font-size: 2.5rem; }
-      .cta-buttons { flex-direction: column; align-items: center; }
-      .btn { width: 100%; max-width: 300px; }
-      .gallery { grid-template-columns: 1fr; }
-      .locations { flex-direction: column; gap: 0.5rem; }
-      .location-item:not(:last-child)::after { display: none; }
+      
+      .cta-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .photo-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .contact-card {
+        padding: 2rem 1.5rem;
+        margin: 0 1rem;
+      }
     }
   </style>
 </head>
 <body>
   <header class="header">
-    <div class="container">
-      <div class="header-inner">
-        <div class="logo">S2K</div>
-        <nav class="nav">
-          <a href="#home" class="nav-link active">Accueil</a>
-          <a href="#portfolio" class="nav-link">Portfolio</a>
-          <a href="#services" class="nav-link">Services</a>
-          <a href="#contact" class="nav-link">Contact</a>
-        </nav>
-        <button class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
+    <div class="header-container">
+      <div class="logo">S2K</div>
+      <nav class="nav">
+        <a href="#home" class="nav-link active">Accueil</a>
+        <a href="#portfolio" class="nav-link">Portfolio</a>
+        <a href="#about" class="nav-link">À propos</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+      <button class="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </header>
 
   <main>
     <!-- Hero -->
     <section id="home" class="hero">
-      <div class="container">
-        <div class="hero-badge float">Saison 2026 complète</div>
+      <div class="hero-content">
+        <div class="badge">Saison 2026 complète</div>
         <h1>Soazig de Kermenguy</h1>
-        <div class="locations">
-          <div class="location-item">Brest</div>
-          <div class="location-item">La Roche-sur-Yon</div>
+        <div class="hero-locations">
+          <div class="location">Brest</div>
+          <div class="location">La Roche-sur-Yon</div>
         </div>
-        <div class="hero-subtitle">Photographe de mariages · ETN Photo · Scouts d'Europe</div>
-        <div class="cta-buttons">
-          <a href="#portfolio" class="btn btn-primary">Voir mon travail</a>
+        <div style="margin: 2rem 0; font-size: 1.3rem; opacity: 0.9;">
+          Photographe de mariages • ETN Photo • Scouts d'Europe
+        </div>
+        <div class="cta-grid">
+          <a href="#portfolio" class="btn btn-primary">Voir le portfolio</a>
           <a href="#contact" class="btn btn-secondary">Me contacter</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- About -->
-    <section class="section">
-      <div class="container">
-        <h2 class="section-title">À propos</h2>
-        <div class="glass-card" style="max-width: 800px; margin: 0 auto;">
-          <p style="font-size: 1.2rem; line-height: 1.8; text-align: center;">
-            J'ai 19 ans et je capture les moments uniques avec émotion et authenticité. 
-            Spécialisée dans les mariages, couples et familles.
-          </p>
-          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
-            <span style="padding: 0.75rem 1.5rem; background: var(--glass-bg); border-radius: 50px; border: 1px solid var(--glass-border);">Mariages</span>
-            <span style="padding: 0.75rem 1.5rem; background: var(--glass-bg); border-radius: 50px; border: 1px solid var(--glass-border);">Couples</span>
-            <span style="padding: 0.75rem 1.5rem; background: var(--glass-bg); border-radius: 50px; border: 1px solid var(--glass-border);">Famille</span>
-            <span style="padding: 0.75rem 1.5rem; background: var(--glass-bg); border-radius: 50px; border: 1px solid var(--glass-border);">Scouts</span>
-          </div>
         </div>
       </div>
     </section>
@@ -525,43 +504,65 @@
     <!-- Portfolio -->
     <section id="portfolio" class="section">
       <div class="container">
-        <h2 class="section-title">Portfolio</h2>
-        <p class="section-subtitle">Mariages</p>
-        <div class="gallery">
-          <div class="gallery-item" data-full="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&w=1400">
+        <div class="section-header">
+          <h2 class="section-title">Portfolio Mariage</h2>
+        </div>
+        <div class="photo-grid">
+          <div class="photo-card" data-full="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&w=1400">
             <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&w=500&q=85" alt="Cérémonie">
-            <div class="gallery-info">
-              <h3 class="gallery-title">Cérémonie</h3>
-              <div class="gallery-category">Mariage • 2025</div>
+            <div class="photo-overlay">
+              <div class="photo-title">Cérémonie</div>
+              <div style="opacity: 0.8;">Mariage • 2025</div>
             </div>
           </div>
-          <div class="gallery-item" data-full="https://images.unsplash.com/photo-1571896349840-0d2d1ba8f7bf?auto=format&w=1400">
+          <div class="photo-card" data-full="https://images.unsplash.com/photo-1571896349840-0d2d1ba8f7bf?auto=format&w=1400">
             <img src="https://images.unsplash.com/photo-1571896349840-0d2d1ba8f7bf?auto=format&w=500&q=85" alt="Baiser">
-            <div class="gallery-info">
-              <h3 class="gallery-title">Premier baiser</h3>
-              <div class="gallery-category">Mariage • 2025</div>
+            <div class="photo-overlay">
+              <div class="photo-title">Premier baiser</div>
+              <div style="opacity: 0.8;">Mariage • 2025</div>
             </div>
           </div>
-          <div class="gallery-item" data-full="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&w=1400">
+          <div class="photo-card" data-full="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&w=1400">
             <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&w=500&q=85" alt="Alliances">
-            <div class="gallery-info">
-              <h3 class="gallery-title">Échange d'alliances</h3>
-              <div class="gallery-category">Mariage • 2024</div>
+            <div class="photo-overlay">
+              <div class="photo-title">Échange d'alliances</div>
+              <div style="opacity: 0.8;">Mariage • 2024</div>
             </div>
           </div>
-          <div class="gallery-item" data-full="https://images.unsplash.com/photo-1569016602078-f2c0bd3e1f37?auto=format&w=1400">
+          <div class="photo-card" data-full="https://images.unsplash.com/photo-1569016602078-f2c0bd3e1f37?auto=format&w=1400">
             <img src="https://images.unsplash.com/photo-1569016602078-f2c0bd3e1f37?auto=format&w=500&q=85" alt="Réception">
-            <div class="gallery-info">
-              <h3 class="gallery-title">Réception</h3>
-              <div class="gallery-category">Mariage • 2025</div>
+            <div class="photo-overlay">
+              <div class="photo-title">Réception</div>
+              <div style="opacity: 0.8;">Mariage • 2025</div>
             </div>
           </div>
-          <div class="gallery-item" data-full="https://images.unsplash.com/photo-1517443440416-9ca7853223e3?auto=format&w=1400">
+          <div class="photo-card" data-full="https://images.unsplash.com/photo-1517443440416-9ca7853223e3?auto=format&w=1400">
             <img src="https://images.unsplash.com/photo-1517443440416-9ca7853223e3?auto=format&w=500&q=85" alt="Danse">
-            <div class="gallery-info">
-              <h3 class="gallery-title">Ouverture de bal</h3>
-              <div class="gallery-category">Mariage • 2024</div>
+            <div class="photo-overlay">
+              <div class="photo-title">Ouverture de bal</div>
+              <div style="opacity: 0.8;">Mariage • 2024</div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">À propos</h2>
+        </div>
+        <div class="contact-card">
+          <p style="font-size: 1.3rem; line-height: 1.8; margin-bottom: 2rem;">
+            J'ai 19 ans et je capture les moments uniques avec émotion et authenticité. 
+            Spécialisée dans les mariages, couples et familles.
+          </p>
+          <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <span style="padding: 1rem 2rem; background: var(--glass-bg); border-radius: 50px; border: 1px solid rgba(255,255,255,0.2);">Mariages</span>
+            <span style="padding: 1rem 2rem; background: var(--glass-bg); border-radius: 50px; border: 1px solid rgba(255,255,255,0.2);">Couples</span>
+            <span style="padding: 1rem 2rem; background: var(--glass-bg); border-radius: 50px; border: 1px solid rgba(255,255,255,0.2);">Famille</span>
+            <span style="padding: 1rem 2rem; background: var(--glass-bg); border-radius: 50px; border: 1px solid rgba(255,255,255,0.2);">Scouts</span>
           </div>
         </div>
       </div>
@@ -570,17 +571,14 @@
     <!-- Contact -->
     <section id="contact" class="section">
       <div class="container">
-        <h2 class="section-title">Contact</h2>
-        <div class="glass-card" style="max-width: 700px; margin: 0 auto;">
-          <div style="text-align: center; font-size: 1.1rem;">
-            <p style="margin-bottom: 2rem;">
-              Prêt à capturer vos plus beaux moments ? 
-              <br><strong>Discutons de votre projet !</strong>
-            </p>
-            <p>
-              📧 <a href="mailto:soazigdekermenguy@gmail.com" style="color: var(--accent-gold); font-weight: 600;">soazigdekermenguy@gmail.com</a>
-            </p>
-          </div>
+        <div class="contact-card">
+          <h2 style="font-size: 3rem; margin-bottom: 1rem;">Contact</h2>
+          <p style="font-size: 1.3rem; margin-bottom: 2rem; opacity: 0.9;">
+            Prêt à capturer vos plus beaux moments ?
+          </p>
+          <p style="font-size: 1.2rem;">
+            📧 <a href="mailto:soazigdekermenguy@gmail.com" style="color: #ff6b6b; font-weight: 700; text-decoration: none;">soazigdekermenguy@gmail.com</a>
+          </p>
         </div>
       </div>
     </section>
@@ -588,14 +586,13 @@
 
   <footer class="footer">
     <div class="container">
-      <div style="font-size: 0.9rem; margin-bottom: 1rem; opacity: 0.7;">© 2026 Soazig de Kermenguy</div>
-      <div class="social-grid">
+      <div style="font-size: 1rem; opacity: 0.7; margin-bottom: 2rem;">© 2026 Soazig de Kermenguy</div>
+      <div class="social-links">
         <a href="https://instagram.com/s2k__photos" class="social-link" target="_blank">Instagram</a>
         <a href="https://pinterest.com/" class="social-link" target="_blank">Pinterest</a>
         <a href="https://tiktok.com/" class="social-link" target="_blank">TikTok</a>
-        <a href="#" class="social-link">YouTube</a>
       </div>
-      <div style="font-size: 0.8rem; opacity: 0.5; margin-top: 2rem;">
+      <div style="font-size: 0.9rem; opacity: 0.5; margin-top: 3rem;">
         Design: Wandrille.Fernex.de.Mongex
       </div>
     </div>
@@ -603,63 +600,56 @@
 
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox">
-    <div class="lightbox-inner">
-      <button class="lightbox-close">&times;</button>
-      <img src="" alt="Portfolio">
-    </div>
+    <img src="" alt="Portfolio">
   </div>
 
   <script>
-    // Navigation mobile
-    const hamburger = document.querySelector('.hamburger');
-    const nav = document.querySelector('.nav');
-    
-    hamburger.addEventListener('click', () => {
-      nav.classList.toggle('mobile');
-    });
-
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+    // Navigation
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        const target = document.querySelector(link.getAttribute('href'));
+        target.scrollIntoView({ behavior: 'smooth' });
       });
     });
 
-    // Gallery lightbox
-    const galleryItems = document.querySelectorAll('.gallery-item');
+    // Lightbox
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = lightbox.querySelector('img');
-    const lightboxClose = document.querySelector('.lightbox-close');
+    const photoCards = document.querySelectorAll('.photo-card');
 
-    galleryItems.forEach(item => {
-      item.addEventListener('click', () => {
-        lightboxImg.src = item.dataset.full;
+    photoCards.forEach(card => {
+      card.addEventListener('click', () => {
+        lightboxImg.src = card.dataset.full;
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
       });
     });
 
-    lightboxClose.addEventListener('click', () => {
+    lightbox.addEventListener('click', () => {
       lightbox.classList.remove('active');
       document.body.style.overflow = '';
     });
 
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) {
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
         lightbox.classList.remove('active');
         document.body.style.overflow = '';
       }
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = '';
-      }
+    // Smooth scroll active nav
+    window.addEventListener('scroll', () => {
+      const sections = ['home', 'portfolio', 'about', 'contact'];
+      const scrollPos = window.scrollY + 100;
+
+      sections.forEach(section => {
+        const el = document.getElementById(section);
+        if (el.offsetTop <= scrollPos && scrollPos < el.offsetTop + el.offsetHeight) {
+          document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+          document.querySelector(`[href="#${section}"]`).classList.add('active');
+        }
+      });
     });
   </script>
 </body>
