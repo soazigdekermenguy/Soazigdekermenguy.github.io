@@ -3,291 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nikon Z9 - Full Size Camera</title>
+    <title>Real Nikon Z9 Camera</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            min-height: 100vh; 
-            background: radial-gradient(ellipse at center, #0d1117 0%, #000 100%);
+            height: 100vh; 
+            background: #0a0a0a;
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            font-family: 'SF Pro Display', -apple-system, sans-serif;
             overflow: hidden;
-            padding: 20px;
         }
         
-        .nikon-z9 { 
-            position: relative; 
-            width: 900px; 
-            height: 640px; 
-            cursor: pointer; 
-            transform-style: preserve-3d;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .nikon-z9:hover { transform: scale(1.01) rotateY(1deg) rotateX(1deg); }
-        
-        /* Main Body - HUGE */
-        .body { 
-            width: 100%; height: 100%; 
-            background: linear-gradient(145deg, 
-                #1a1a1a 0%, 
-                #232323 30%, 
-                #151515 70%, 
-                #0a0a0a 100%);
-            border-radius: 40px 25px 35px 35px;
+        .camera {
+            width: 100vw;
+            height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1609441956085-b4a2f3443625?w=1920&h=1080&fit=crop');
+            background-size: cover;
+            background-position: center;
             position: relative;
+            cursor: pointer;
+        }
+        
+        .lcd {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 300px;
+            background: #001122;
+            border: 8px solid #003366;
+            border-radius: 15px;
             box-shadow: 
-                0 50px 100px rgba(0,0,0,0.8),
-                0 0 100px rgba(255,64,64,0.1),
-                inset 0 5px 20px rgba(255,255,255,0.08),
-                inset 0 -5px 30px rgba(0,0,0,0.7);
-            border: 4px solid #2a2a2a;
-        }
-        
-        /* Vertical Grip - MASSIVE */
-        .grip { 
-            position: absolute; 
-            right: -20px; 
-            top: 25%; 
-            width: 160px; 
-            height: 280px; 
-            background: linear-gradient(145deg, #2a2a2a 0%, #1a1a1a 50%, #111 100%);
-            border-radius: 0 25px 25px 0;
-            box-shadow: 
-                inset 5px 0 20px rgba(0,0,0,0.6),
-                10px 0 30px rgba(0,0,0,0.5);
-        }
-        
-        /* Lens Mount */
-        .lens-mount { 
-            position: absolute; 
-            top: 28%; 
-            left: 12%; 
-            width: 130px; 
-            height: 130px; 
-            background: radial-gradient(circle, #3a3a3a 0%, #222 50%, #111 100%);
-            border-radius: 50%; 
-            border: 12px solid #555;
-            box-shadow: 
-                inset 0 10px 30px rgba(0,0,0,0.9), 
-                0 10px 30px rgba(0,0,0,0.6);
-        }
-        
-        /* GIANT Lens */
-        .lens { 
-            position: absolute; 
-            top: 24%; 
-            left: 15%; 
-            width: 200px; 
-            height: 200px; 
-            background: conic-gradient(from 90deg at 30% 30%, 
-                #2a2a2a 0deg, 
-                #1a1a1a 90deg, 
-                #111 180deg, 
-                #000 270deg);
-            border-radius: 50%; 
-            border: 15px solid #444;
-            box-shadow: 
-                inset 0 0 60px rgba(0,0,0,1),
-                0 15px 50px rgba(0,0,0,0.8),
-                inset 20px 20px 40px rgba(0,0,0,0.5);
-        }
-        
-        /* Viewfinder - Professional */
-        .viewfinder { 
-            position: absolute; 
-            top: 8%; 
-            left: 35%; 
-            width: 160px; 
-            height: 100px; 
-            background: linear-gradient(145deg, #1a1a1a, #000);
-            border-radius: 15px 20px 20px 15px;
-            border: 6px solid #333;
-            box-shadow: inset 0 5px 20px rgba(0,0,0,0.9);
-        }
-        .viewfinder::after { 
-            content: ''; 
-            position: absolute; 
-            top: 25%; left: 20%; 
-            width: 100px; height: 50px; 
-            background: #111; 
-            border-radius: 5px;
-            box-shadow: inset 0 0 20px #000;
-        }
-        
-        /* PRO LCD Screen */
-        .lcd { 
-            position: absolute; 
-            top: 28%; 
-            right: 18%; 
-            width: 260px; 
-            height: 190px; 
-            background: #000; 
-            border: 6px solid #2a2a2a;
-            border-radius: 12px;
-            overflow: hidden;
+                inset 0 0 50px rgba(0,0,0,0.8),
+                0 0 100px rgba(0,255,136,0.3);
             opacity: 0;
-            transform: translateY(20px) scale(0.9);
-            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 
-                inset 0 0 40px rgba(0,0,0,0.95),
-                0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.8s ease;
         }
-        .lcd.active { 
-            opacity: 1; 
-            transform: translateY(0) scale(1);
-        }
-        .lcd img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            transition: transform 0.4s ease;
-        }
-        .lcd img:hover { transform: scale(1.02); }
         
-        /* Status Bar */
+        .lcd.active {
+            opacity: 1;
+        }
+        
+        .photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 7px;
+            transition: opacity 0.5s ease;
+        }
+        
         .status-bar {
             position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 28px;
-            background: linear-gradient(90deg, #001122, #002244, #003366);
-            border-bottom: 2px solid #004488;
-            display: flex;
-            align-items: center;
-            padding: 0 15px;
-            font-size: 14px;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(90deg, #001122, #003366);
             color: #00ff88;
-            text-shadow: 0 0 8px #00ff88;
-            font-weight: 600;
+            font-family: monospace;
+            font-size: 12px;
+            padding: 5px 10px;
+            display: flex;
+            justify-content: space-between;
+            text-shadow: 0 0 10px #00ff88;
         }
         
-        /* GIANT Shutter Button */
-        .shutter { 
-            position: absolute; 
-            top: 60%; 
-            right: 28%; 
-            width: 90px; 
-            height: 90px; 
-            background: conic-gradient(from 0deg at 50% 50%, 
-                #ff4444 0deg, 
-                #dd3333 120deg, 
-                #cc0000 240deg, 
-                #aa0000 360deg);
-            border-radius: 50%; 
-            border: 8px solid #fff;
-            cursor: pointer;
-            box-shadow: 
-                0 15px 40px rgba(200,0,0,0.5),
-                inset 0 4px 12px rgba(255,255,255,0.25),
-                inset 0 -2px 8px rgba(0,0,0,0.3);
-            transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            z-index: 20;
-        }
-        .shutter:active { 
-            transform: translateY(8px) scale(0.92); 
-            box-shadow: 
-                0 5px 20px rgba(200,0,0,0.5),
-                inset 0 4px 12px rgba(255,255,255,0.25);
-        }
-        .shutter::after { 
-            content: ''; 
-            position: absolute; 
-            top: 50%; left: 50%; 
-            transform: translate(-50%, -50%); 
-            width: 40px; height: 40px; 
-            background: radial-gradient(circle, #fff 0%, #f5f5f5 70%, #ddd 100%); 
-            border-radius: 50%; 
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
-        }
-        
-        /* Command Dial */
-        .dial { 
-            position: absolute; 
-            top: 72%; 
-            right: 38%; 
-            width: 70px; 
-            height: 70px; 
-            background: radial-gradient(circle, #666 0%, #444 60%, #333 100%);
-            border-radius: 50%; 
-            border: 5px solid #555;
-            cursor: pointer;
-            box-shadow: 
-                0 10px 25px rgba(0,0,0,0.6),
-                inset 0 3px 8px rgba(255,255,255,0.25);
-            transition: all 0.3s ease;
-        }
-        .dial:active { 
-            transform: rotate(180deg) scale(0.95); 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.6);
-        }
-        .dial::before { 
-            content: 'N'; 
-            position: absolute; 
-            top: 50%; left: 50%; 
-            transform: translate(-50%, -50%); 
-            font-size: 24px; 
-            color: #fff; 
-            font-weight: bold;
-            text-shadow: 0 0 10px #fff;
-        }
-        
-        /* Instructions */
-        .instructions {
+        .shutter {
             position: absolute;
-            bottom: -80px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #aaa;
-            font-size: 18px;
-            text-align: center;
-            text-shadow: 0 3px 15px rgba(0,0,0,0.9);
-            font-weight: 500;
+            bottom: 20%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #ff4444, #cc0000);
+            border: 6px solid #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255,0,0,0.4);
+            transition: all 0.2s ease;
         }
         
-        /* Full Screen Flash */
-        .flash { 
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100vw; height: 100vh; 
-            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
-            opacity: 0; 
-            pointer-events: none; 
+        .shutter:active {
+            transform: scale(0.9) translateY(5px);
+            box-shadow: 0 5px 15px rgba(255,0,0,0.4);
+        }
+        
+        .flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.1s ease;
             z-index: 100;
-            transition: opacity 0.15s ease;
         }
-        .flash.active { opacity: 1; }
         
-        @media (max-width: 1000px) {
-            .nikon-z9 { width: 750px; height: 530px; }
-        }
-        @media (max-width: 800px) {
-            .nikon-z9 { width: 650px; height: 460px; }
-            body { padding: 10px; }
+        .flash.active {
+            opacity: 0.4;
         }
     </style>
 </head>
 <body>
-    <div class="nikon-z9" id="camera">
-        <div class="body">
-            <div class="grip"></div>
-            <div class="lens-mount"></div>
-            <div class="lens"></div>
-            <div class="viewfinder"></div>
-            
-            <div class="lcd" id="lcd">
-                <div class="status-bar">
-                    1/8000 F1.4 ISO100 14:32:45 • 45.7MP
-                </div>
-                <img id="photo" src="" alt="Photo">
-            </div>
-            
-            <div class="shutter" id="shutter"></div>
-            <div class="dial" id="dial"></div>
+    <div class="camera" id="camera">
+        <div class="lcd" id="lcd">
+            <div class="status-bar">1/8000 F1.4 ISO100 45MP</div>
+            <img class="photo" id="photo" src="" alt="">
         </div>
-        <div class="instructions">
-            👆 Click camera to power on → 🎯 Shutter to capture → ⏺️ Dial to review
-        </div>
+        <div class="shutter" id="shutter"></div>
     </div>
     
     <div class="flash" id="flash"></div>
@@ -305,34 +131,28 @@
         const camera = document.getElementById('camera');
         const lcd = document.getElementById('lcd');
         const shutter = document.getElementById('shutter');
-        const dial = document.getElementById('dial');
         const photo = document.getElementById('photo');
         const flash = document.getElementById('flash');
         
+        // Click anywhere to power on
         camera.addEventListener('click', (e) => {
-            if (e.target.closest('.shutter, .dial')) return;
+            if (e.target === shutter) return;
             lcd.classList.add('active');
-            if (!photo.src) photo.src = photos[currentPhotoIndex];
+            if (!photo.src) {
+                photo.src = photos[currentPhotoIndex];
+            }
         });
         
+        // Shutter click
         shutter.addEventListener('click', (e) => {
             e.stopPropagation();
             if (!lcd.classList.contains('active')) return;
             
+            // Flash effect
             flash.classList.add('active');
-            setTimeout(() => flash.classList.remove('active'), 150);
+            setTimeout(() => flash.classList.remove('active'), 100);
             
-            shutter.style.transform = 'translateY(8px) scale(0.92)';
-            setTimeout(() => {
-                shutter.style.transform = '';
-                currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
-                photo.src = photos[currentPhotoIndex];
-            }, 200);
-        });
-        
-        dial.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (!lcd.classList.contains('active')) return;
+            // Change photo
             currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
             photo.src = photos[currentPhotoIndex];
         });
